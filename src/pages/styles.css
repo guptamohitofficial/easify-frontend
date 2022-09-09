@@ -727,12 +727,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .wa {
   --tw-bg-opacity: 1;
-  background-color: rgb(5 150 105 / var(--tw-bg-opacity));
+  background-color: rgb(15 142 229 / var(--tw-bg-opacity));
 }
 
 .xa {
   --tw-bg-opacity: 1;
-  background-color: rgb(4 120 87 / var(--tw-bg-opacity));
+  background-color: rgb(14 100 180 / var(--tw-bg-opacity));
 }
 
 .ya {
@@ -926,7 +926,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .hover\:xa:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(4 120 87 / var(--tw-bg-opacity));
+  /* background-color: rgb(4 120 87 / var(--tw-bg-opacity)); */
+  background-color: rgb(14 100 180 / var(--tw-bg-opacity));
 }
 
 .hover\:hc:hover {
