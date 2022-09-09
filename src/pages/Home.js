@@ -12,18 +12,22 @@ function Home() {
           <div className="g z">
             <div className="i ea pb md:yc">
               <a href="#services" className="zb bc hover:ub">Services</a>
-              {/* <a href="#0" className="zb bc hover:ub">Prices</a>
-              <a href="#0" className="zb bc hover:ub">About</a> */}
               <a href="#contact" className="zb bc hover:ub">Contact</a>
-              {/* <button className="wa hover:xa zb cc ab.5 bb oa rb qb">Get Started</button> */}
+              {/* <a href="#0" className="zb bc hover:ub">Prices</a>
+              <a href="#0" className="zb bc hover:ub">About</a>
+              <button className="wa hover:xa zb cc ab.5 bb oa rb qb">Get Started</button> */}
             </div>
-            <div className="md:i">
-              <a href="#0" className="">
+            <small className="yc ea md:i">
+              <a href="#services" className="zb bc hover:ub">Services</a>
+              <a href="#contact" className="zb bc hover:ub">Contact</a>
+            </small>
+            {/* <div className="md:i">
+              <a href="#" className="">
                 <svg xmlns="http://www.w3.org/2000/svg" className="j o" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </a>
-            </div>
+            </div> */}
           </div>
         </header>{/* End Header */}
         <section className="a _a cb b sm:wc md:bd xl:ld">{/* Start Hero */}
