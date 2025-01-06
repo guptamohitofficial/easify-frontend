@@ -17,7 +17,7 @@ export default function Home() {
         <div className="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
           <ul className="breadcrumb tracking-[0.5px] breadcrumb-light mb-0 inline-block">
             <li className="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white">
-              <a href="index.html">Jobstack</a>
+              <a href="/">Easify</a>
             </li>
             <li
               className="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white"
@@ -118,7 +118,7 @@ export default function Home() {
         <div className="container md:mt-24 mt-16">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
-              Jobstack Features
+              Easify Features
             </h3>
             <p className="text-slate-400 max-w-xl mx-auto">
               Search all the open positions on the web. Get your own
@@ -426,7 +426,7 @@ export default function Home() {
               />
               <div className="flex-1">
                 <h5 className="mb-2 text-lg font-semibold">
-                  How our <span className="text-emerald-600">Jobstack</span>{" "}
+                  How our <span className="text-emerald-600">Easify</span>{" "}
                   work ?
                 </h5>
                 <p className="text-slate-400">
@@ -478,7 +478,7 @@ export default function Home() {
               <div className="flex-1">
                 <h5 className="mb-2 text-lg font-semibold">
                   {" "}
-                  Is <span className="text-emerald-600">Jobstack</span> safer to
+                  Is <span className="text-emerald-600">Easify</span> safer to
                   use with my account ?
                 </h5>
                 <p className="text-slate-400">

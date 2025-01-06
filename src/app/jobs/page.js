@@ -18,7 +18,7 @@ export default function Jobs() {
         <div className="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
           <ul className="breadcrumb tracking-[0.5px] breadcrumb-light mb-0 inline-block">
             <li className="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white">
-              <a href="index.html">Jobstack</a>
+              <a href="/">Easify</a>
             </li>
             <li
               className="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white"
@@ -1631,7 +1631,7 @@ export default function Jobs() {
         <div className="container md:mt-24 mt-16">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
-              Here's why you'll love it Jobstack
+              Here's why you'll love it Easify
             </h3>
             <p className="text-slate-400 max-w-xl mx-auto">
               Search all the open positions on the web. Get your own

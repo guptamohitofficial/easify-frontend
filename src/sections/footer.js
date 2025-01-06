@@ -1,4 +1,7 @@
 "use client";
+
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <>
@@ -82,55 +85,22 @@ export default function Footer() {
             <div className="grid md:grid-cols-2 items-center gap-6">
               <div className="md:text-start text-center">
                 <p className="mb-0 text-gray-300 font-medium">
-                  © Jobstack. Design with{" "}
+                  © <Link href='https://worksnet.in' target="_blank">WorksNet.</Link> Design with{" "}
                   <i className="mdi mdi-heart text-red-600" /> by{" "}
-                  <a
-                    href="https://shreethemes.in/"
+                  <Link
+                    href="https://worksnet.in"
                     target="_blank"
                     className="text-reset"
                   >
-                    Shreethemes
-                  </a>
+                    WorksNet
+                  </Link>
                   .
                 </p>
               </div>
               <ul className="list-none md:text-end text-center space-x-0.5">
                 <li className="inline">
                   <a
-                    href="https://1.envato.market/jobstack"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i
-                      className="uil uil-shopping-cart align-middle"
-                      title="Buy Now"
-                    />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="https://dribbble.com/shreethemes"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i
-                      className="uil uil-dribbble align-middle"
-                      title="dribbble"
-                    />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="https://www.behance.net/shreethemes"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i className="uil uil-behance" title="Behance" />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="http://linkedin.com/company/shreethemes"
+                    href="https://www.linkedin.com/in/garima-s-184422329"
                     target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
@@ -139,43 +109,7 @@ export default function Footer() {
                 </li>
                 <li className="inline">
                   <a
-                    href="https://www.facebook.com/shreethemes"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i
-                      className="uil uil-facebook-f align-middle"
-                      title="facebook"
-                    />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="https://www.instagram.com/shreethemes/"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i
-                      className="uil uil-instagram align-middle"
-                      title="instagram"
-                    />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="https://x.com/shreethemes"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i
-                      className="uil uil-twitter align-middle"
-                      title="twitter"
-                    />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="mailto:support@shreethemes.in"
+                    href="mailto:garima@worksnet.in"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i
