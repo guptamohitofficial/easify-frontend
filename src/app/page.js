@@ -1,20 +1,102 @@
-import Image from "next/image";
+"use client";
+
+import JobCardAbstract from "@/components/job-card-abstract";
+import { getSheetData } from "@/utils";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [searchLocationOptions, setSearchLocationOptions] = useState([]);
+  const [topJobServices, setTopJobServices] = useState([]);
+  const [fetchedJobs, setFetchedJobs] = useState([]);
+
+  useEffect(() => {
+    setSearchLocationOptions([
+      "Bengaluru",
+      "Hyderabad",
+      "Mumbai",
+      "New Delhi",
+      "Noida",
+      "Gurgaon",
+      "Faridabad",
+      "Ghaziabad",
+      "Pune",
+      "Chennai",
+      "Kolkata",
+      "Ahmedabad",
+      "Jaipur",
+      "Chandigarh",
+      "Kochi",
+      "Indore",
+      "Lucknow",
+      "Surat",
+      "Nagpur",
+      "Bhopal",
+      "Vadodara",
+      "Bhubaneswar",
+      "Coimbatore",
+      "Thiruvananthapuram",
+    ]);
+    setTopJobServices([
+      {
+        title: "Product & Branding Design",
+        image: "/assets/images/work/01.jpg",
+        link: "",
+      },
+      {
+        title: "Sales Executive",
+        image: "/assets/images/work/03.jpg",
+        link: "",
+      },
+      {
+        title: "Marketing Lead",
+        image: "/assets/images/work/03.jpg",
+        link: "",
+      },
+      {
+        title: "Admin & Customer Support",
+        image: "/assets/images/work/04.jpg",
+        link: "",
+      },
+      {
+        title: "UX / UI Designer",
+        image: "/assets/images/work/05.jpg",
+        link: "",
+      },
+      {
+        title: "Digital Marketing",
+        image: "/assets/images/work/06.jpg",
+        link: "",
+      },
+    ]);
+    fetchAllJobs();
+  }, []);
+  const fetchAllJobs = async () => {
+    const jobsList = await getSheetData({
+      sheetID: "1UDZEV5Jq4AemQ-yUEy31EAO0rox6GfCU8Bcip86cY3A",
+      sheetName: "Sheet1",
+      query: "SELECT * WHERE I = TRUE",
+    });
+    console.log("jobsList", jobsList);
+    setFetchedJobs(jobsList);
+  };
+
   return (
     <>
       {/* Hero Start */}
-      <section style={{backgroundImage:"url('/assets/images/hero/bg.jpg')"}} className="relative h-screen flex justify-center items-center bg-cover">
-        <div className="absolute inset-0 bg-slate-900/30" />
+      <section
+        style={{ backgroundImage: "url('/assets/images/hero/bg.jpg')" }}
+        className="relative h-screen flex justify-center items-center bg-cover"
+      >
+        <div className="absolute inset-0 bg-emerald-900/80" />
         <div className="container z-1">
           <div className="grid grid-cols-1 text-center mt-10 relative">
             <h4 className="lg:leading-normal leading-normal text-4xl lg:text-6xl mb-5 font-bold text-white">
-              Find &amp; Hire Experts <br /> for any Job
+              Find &amp; Hire Experts <br /> in {"<"} 2 weeks
             </h4>
             <p className="text-white/50 text-lg max-w-xl mx-auto">
-              Find Jobs, Employment &amp; Career Opportunities. Some of the
-              companies we've helped recruit excellent applicants over the
-              years.
+              Find Jobs &amp; Career Opportunities. Some of the companies we've
+              helped grown 10X with efficient candidates.
             </p>
             <div className="d-flex" id="reserve-form">
               <div className="md:w-5/6 mx-auto">
@@ -30,7 +112,7 @@ export default function Home() {
                               type="text"
                               id="job-keyword"
                               className="form-input filter-input-box bg-gray-50 dark:bg-slate-800 border-0"
-                              placeholder="Search your Keywords"
+                              placeholder="Search your Job Keywords"
                             />
                           </div>
                           <div className="filter-search-form relative filter-border">
@@ -42,17 +124,11 @@ export default function Home() {
                               id="choices-location"
                               aria-label="Default select example"
                             >
-                              <option value="AF">Afghanistan</option>
-                              <option value="AZ">Azerbaijan</option>
-                              <option value="BS">Bahamas</option>
-                              <option value="BH">Bahrain</option>
-                              <option value="CA">Canada</option>
-                              <option value="CV">Cape Verde</option>
-                              <option value="DK">Denmark</option>
-                              <option value="DJ">Djibouti</option>
-                              <option value="ER">Eritrea</option>
-                              <option value="EE">Estonia</option>
-                              <option value="GM">Gambia</option>
+                              {searchLocationOptions?.map((city) => (
+                                <option key={city} value={city}>
+                                  {city}
+                                </option>
+                              ))}
                             </select>
                           </div>
                           <input
@@ -76,8 +152,9 @@ export default function Home() {
             {/*end grid*/}
             <div className="mt-4">
               <span className="text-white/60">
-                <span className="text-white">Popular Searches :</span> Designer,
-                Developer, Web, IOS, PHP Senior Engineer
+                <span className="text-white">Popular Searches :</span> Sales,
+                Marketing, Python Developer, AI Jobs, Executive Assistant,
+                Founder's office
               </span>
             </div>
           </div>
@@ -105,90 +182,22 @@ export default function Home() {
           {/*end grid*/}
           <div className="grid grid-cols-1 mt-7 relative">
             <div className="tiny-five-item">
-              <div className="tiny-slide">
-                <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-700 transition duration-500 m-1">
-                  <img src="/assets/images/work/01.jpg" alt="" />
-                  <div className="absolute inset-0 bg-slate-900/50" />
-                  <div className="absolute bottom-0 p-4">
-                    <a
-                      href=""
-                      className="text-lg font-semibold text-white hover:text-emerald-600 transition-all duration-500"
-                    >
-                      Product &amp; Branding Design
-                    </a>
+              {topJobServices?.map((job, index) => (
+                <div className="tiny-slide" key={index}>
+                  <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-700 transition duration-500 m-1">
+                    <img src={job.image} alt={job.title} />
+                    <div className="absolute inset-0 bg-slate-900/50" />
+                    <div className="absolute bottom-0 p-4">
+                      <Link
+                        href={job.link ? job.link : "#"}
+                        className="text-lg font-semibold text-white hover:text-emerald-600 transition-all duration-500"
+                      >
+                        {job.title}
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="tiny-slide">
-                <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-700 transition duration-500 m-1">
-                  <img src="/assets/images/work/02.jpg" alt="" />
-                  <div className="absolute inset-0 bg-slate-900/50" />
-                  <div className="absolute bottom-0 p-4">
-                    <a
-                      href=""
-                      className="text-lg font-semibold text-white hover:text-emerald-600 transition-all duration-500"
-                    >
-                      Wordpress Development
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="tiny-slide">
-                <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-700 transition duration-500 m-1">
-                  <img src="/assets/images/work/03.jpg" alt="" />
-                  <div className="absolute inset-0 bg-slate-900/50" />
-                  <div className="absolute bottom-0 p-4">
-                    <a
-                      href=""
-                      className="text-lg font-semibold text-white hover:text-emerald-600 transition-all duration-500"
-                    >
-                      Audio &amp; Video Editing
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="tiny-slide">
-                <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-700 transition duration-500 m-1">
-                  <img src="/assets/images/work/04.jpg" alt="" />
-                  <div className="absolute inset-0 bg-slate-900/50" />
-                  <div className="absolute bottom-0 p-4">
-                    <a
-                      href=""
-                      className="text-lg font-semibold text-white hover:text-emerald-600 transition-all duration-500"
-                    >
-                      Admin &amp; Customer Support
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="tiny-slide">
-                <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-700 transition duration-500 m-1">
-                  <img src="/assets/images/work/05.jpg" alt="" />
-                  <div className="absolute inset-0 bg-slate-900/50" />
-                  <div className="absolute bottom-0 p-4">
-                    <a
-                      href=""
-                      className="text-lg font-semibold text-white hover:text-emerald-600 transition-all duration-500"
-                    >
-                      UX / UI Designer
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="tiny-slide">
-                <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-700 transition duration-500 m-1">
-                  <img src="/assets/images/work/06.jpg" alt="" />
-                  <div className="absolute inset-0 bg-slate-900/50" />
-                  <div className="absolute bottom-0 p-4">
-                    <a
-                      href=""
-                      className="text-lg font-semibold text-white hover:text-emerald-600 transition-all duration-500"
-                    >
-                      Digital Marketing
-                    </a>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
           {/*grid*/}
@@ -207,315 +216,9 @@ export default function Home() {
           </div>
           {/*end grid*/}
           <div className="grid grid-cols-1 mt-8 gap-[30px]">
-            <div className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
-              <div className="flex items-center">
-                <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                  <img
-                    src="/assets/images/company/facebook-logo.png"
-                    className="size-8"
-                    alt=""
-                  />
-                </div>
-                <a
-                  href="job-detail-one.html"
-                  className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ms-3 min-w-[180px]"
-                >
-                  Web Designer
-                </a>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-4">
-                <span className="block">
-                  <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
-                    Full Time
-                  </span>
-                </span>
-                <span className="block text-slate-400 text-sm md:mt-1 mt-0">
-                  <i className="uil uil-clock" /> 20th Feb 2023
-                </span>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-2">
-                <span className="text-slate-400">
-                  <i className="uil uil-map-marker" /> Australia
-                </span>
-                <span className="block font-semibold md:mt-1 mt-0">
-                  $4,000 - $4,500
-                </span>
-              </div>
-              <div className="md:mt-0 mt-4">
-                <a
-                  href=""
-                  className="btn btn-icon rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3"
-                >
-                  <i data-feather="bookmark" className="size-4" />
-                </a>
-                <a
-                  href="job-apply.html"
-                  className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white md:ms-2 w-full md:w-auto"
-                >
-                  Apply Now
-                </a>
-              </div>
-              <span className="w-24 bg-yellow-400 text-white text-center absolute ltr:-rotate-45 rtl:rotate-45 -start-[30px] top-1">
-                <i className="uil uil-star" />
-              </span>
-            </div>
-            {/*end content*/}
-            <div className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
-              <div className="flex items-center">
-                <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                  <img
-                    src="/assets/images/company/google-logo.png"
-                    className="size-8"
-                    alt=""
-                  />
-                </div>
-                <a
-                  href="job-detail-one.html"
-                  className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ms-3 min-w-[180px]"
-                >
-                  Marketing Director
-                </a>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-4">
-                <span className="block">
-                  <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
-                    Part Time
-                  </span>
-                </span>
-                <span className="block text-slate-400 text-sm md:mt-1 mt-0">
-                  <i className="uil uil-clock" /> 20th Feb 2023
-                </span>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-2">
-                <span className="text-slate-400">
-                  <i className="uil uil-map-marker" /> USA
-                </span>
-                <span className="block font-semibold md:mt-1 mt-0">
-                  $4,000 - $4,500
-                </span>
-              </div>
-              <div className="md:mt-0 mt-4">
-                <a
-                  href=""
-                  className="btn btn-icon rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3"
-                >
-                  <i data-feather="bookmark" className="size-4" />
-                </a>
-                <a
-                  href="job-apply.html"
-                  className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white md:ms-2 w-full md:w-auto"
-                >
-                  Apply Now
-                </a>
-              </div>
-            </div>
-            {/*end content*/}
-            <div className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
-              <div className="flex items-center">
-                <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                  <img
-                    src="/assets/images/company/android.png"
-                    className="size-8"
-                    alt=""
-                  />
-                </div>
-                <a
-                  href="job-detail-one.html"
-                  className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ms-3 min-w-[180px]"
-                >
-                  App Developer
-                </a>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-4">
-                <span className="block">
-                  <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
-                    Remote
-                  </span>
-                </span>
-                <span className="block text-slate-400 text-sm md:mt-1 mt-0">
-                  <i className="uil uil-clock" /> 20th Feb 2023
-                </span>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-2">
-                <span className="text-slate-400">
-                  <i className="uil uil-map-marker" /> China
-                </span>
-                <span className="block font-semibold md:mt-1 mt-0">
-                  $4,000 - $4,500
-                </span>
-              </div>
-              <div className="md:mt-0 mt-4">
-                <a
-                  href=""
-                  className="btn btn-icon rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3"
-                >
-                  <i data-feather="bookmark" className="size-4" />
-                </a>
-                <a
-                  href="job-apply.html"
-                  className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white md:ms-2 w-full md:w-auto"
-                >
-                  Apply Now
-                </a>
-              </div>
-            </div>
-            {/*end content*/}
-            <div className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
-              <div className="flex items-center">
-                <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                  <img
-                    src="/assets/images/company/lenovo-logo.png"
-                    className="size-8"
-                    alt=""
-                  />
-                </div>
-                <a
-                  href="job-detail-one.html"
-                  className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ms-3 min-w-[180px]"
-                >
-                  Product Designer
-                </a>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-4">
-                <span className="block">
-                  <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
-                    WFH
-                  </span>
-                </span>
-                <span className="block text-slate-400 text-sm md:mt-1 mt-0">
-                  <i className="uil uil-clock" /> 20th Feb 2023
-                </span>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-2">
-                <span className="text-slate-400">
-                  <i className="uil uil-map-marker" /> Dubai
-                </span>
-                <span className="block font-semibold md:mt-1 mt-0">
-                  $4,000 - $4,500
-                </span>
-              </div>
-              <div className="md:mt-0 mt-4">
-                <a
-                  href=""
-                  className="btn btn-icon rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3"
-                >
-                  <i data-feather="bookmark" className="size-4" />
-                </a>
-                <a
-                  href="job-apply.html"
-                  className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white md:ms-2 w-full md:w-auto"
-                >
-                  Apply Now
-                </a>
-              </div>
-            </div>
-            {/*end content*/}
-            <div className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
-              <div className="flex items-center">
-                <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                  <img
-                    src="/assets/images/company/spotify.png"
-                    className="size-8"
-                    alt=""
-                  />
-                </div>
-                <a
-                  href="job-detail-one.html"
-                  className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ms-3 min-w-[180px]"
-                >
-                  C++ Developer
-                </a>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-4">
-                <span className="block">
-                  <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
-                    Full Time
-                  </span>
-                </span>
-                <span className="block text-slate-400 text-sm md:mt-1 mt-0">
-                  <i className="uil uil-clock" /> 20th Feb 2023
-                </span>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-2">
-                <span className="text-slate-400">
-                  <i className="uil uil-map-marker" /> India
-                </span>
-                <span className="block font-semibold md:mt-1 mt-0">
-                  $4,000 - $4,500
-                </span>
-              </div>
-              <div className="md:mt-0 mt-4">
-                <a
-                  href=""
-                  className="btn btn-icon rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3"
-                >
-                  <i data-feather="bookmark" className="size-4" />
-                </a>
-                <a
-                  href="job-apply.html"
-                  className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white md:ms-2 w-full md:w-auto"
-                >
-                  Apply Now
-                </a>
-              </div>
-              <span className="w-24 bg-yellow-400 text-white text-center absolute ltr:-rotate-45 rtl:rotate-45 -start-[30px] top-1">
-                <i className="uil uil-star" />
-              </span>
-            </div>
-            {/*end content*/}
-            <div className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
-              <div className="flex items-center">
-                <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                  <img
-                    src="/assets/images/company/linkedin.png"
-                    className="size-8"
-                    alt=""
-                  />
-                </div>
-                <a
-                  href="job-detail-one.html"
-                  className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ms-3 min-w-[180px]"
-                >
-                  Php Developer
-                </a>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-4">
-                <span className="block">
-                  <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
-                    Remote
-                  </span>
-                </span>
-                <span className="block text-slate-400 text-sm md:mt-1 mt-0">
-                  <i className="uil uil-clock" /> 20th Feb 2023
-                </span>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-2">
-                <span className="text-slate-400">
-                  <i className="uil uil-map-marker" /> Pakistan
-                </span>
-                <span className="block font-semibold md:mt-1 mt-0">
-                  $4,000 - $4,500
-                </span>
-              </div>
-              <div className="md:mt-0 mt-4">
-                <a
-                  href=""
-                  className="btn btn-icon rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3"
-                >
-                  <i data-feather="bookmark" className="size-4" />
-                </a>
-                <a
-                  href="job-apply.html"
-                  className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white md:ms-2 w-full md:w-auto"
-                >
-                  Apply Now
-                </a>
-              </div>
-              <span className="w-24 bg-yellow-400 text-white text-center absolute ltr:-rotate-45 rtl:rotate-45 -start-[30px] top-1">
-                <i className="uil uil-star" />
-              </span>
-            </div>
-            {/*end content*/}
+            {fetchedJobs?.map((job) => (
+              <JobCardAbstract key={job.job_description} job={job} />
+            ))}
           </div>
           {/*end grid*/}
           <div className="grid md:grid-cols-1 grid-cols-1 mt-8">
@@ -952,227 +655,6 @@ export default function Home() {
       </section>
       {/*end section*/}
       {/* End */}
-      {/* Start Footer */}
-      <footer className="relative bg-slate-900 dark:bg-slate-800">
-        <div className="container">
-          <div className="grid grid-cols-1">
-            <div className="relative py-12">
-              {/* Subscribe */}
-              <div className="relative w-full">
-                <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
-                  <div className="md:col-span-3">
-                    <a
-                      href="#"
-                      className="flex justify-center md:justify-start focus:outline-none"
-                    >
-                      <img
-                        src="/assets/images/logo-light.png"
-                        className=""
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                  {/*end col*/}
-                  <div className="md:col-span-9">
-                    <ul className="list-disc footer-list md:text-end text-center space-x-3">
-                      <li className="inline-block">
-                        <a
-                          href="index.html"
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium"
-                        >
-                          Home
-                        </a>
-                      </li>
-                      <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          href="services.html"
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium"
-                        >
-                          How it works
-                        </a>
-                      </li>
-                      <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          href=""
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium"
-                        >
-                          Create a job
-                        </a>
-                      </li>
-                      <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          href="aboutus.html"
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium"
-                        >
-                          About us
-                        </a>
-                      </li>
-                      <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          href="contact.html"
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium"
-                        >
-                          Contact us
-                        </a>
-                      </li>
-                    </ul>
-                    {/*end icon*/}
-                  </div>
-                  {/*end col*/}
-                </div>
-                {/*end grid*/}
-              </div>
-              {/* Subscribe */}
-            </div>
-          </div>
-        </div>
-        {/*end container*/}
-        <div className="py-[30px] px-0 border-t border-gray-800 dark:border-gray-700">
-          <div className="container text-center">
-            <div className="grid md:grid-cols-2 items-center gap-6">
-              <div className="md:text-start text-center">
-                <p className="mb-0 text-gray-300 font-medium">
-                  © Jobstack. Design with{" "}
-                  <i className="mdi mdi-heart text-red-600" /> by{" "}
-                  <a
-                    href="https://shreethemes.in/"
-                    target="_blank"
-                    className="text-reset"
-                  >
-                    Shreethemes
-                  </a>
-                  .
-                </p>
-              </div>
-              <ul className="list-none md:text-end text-center space-x-0.5">
-                <li className="inline">
-                  <a
-                    href="https://1.envato.market/jobstack"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i
-                      className="uil uil-shopping-cart align-middle"
-                      title="Buy Now"
-                    />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="https://dribbble.com/shreethemes"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i
-                      className="uil uil-dribbble align-middle"
-                      title="dribbble"
-                    />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="https://www.behance.net/shreethemes"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i className="uil uil-behance" title="Behance" />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="http://linkedin.com/company/shreethemes"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i className="uil uil-linkedin" title="Linkedin" />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="https://www.facebook.com/shreethemes"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i
-                      className="uil uil-facebook-f align-middle"
-                      title="facebook"
-                    />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="https://www.instagram.com/shreethemes/"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i
-                      className="uil uil-instagram align-middle"
-                      title="instagram"
-                    />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="https://x.com/shreethemes"
-                    target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i
-                      className="uil uil-twitter align-middle"
-                      title="twitter"
-                    />
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    href="mailto:support@shreethemes.in"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
-                  >
-                    <i
-                      className="uil uil-envelope align-middle"
-                      title="email"
-                    />
-                  </a>
-                </li>
-              </ul>
-              {/*end icon*/}
-            </div>
-            {/*end grid*/}
-          </div>
-          {/*end container*/}
-        </div>
-      </footer>
-      {/*end footer*/}
-      {/* End Footer */}
-      {/* Switcher */}
-      <div className="fixed top-1/4 -left-2 z-50">
-        <span className="relative inline-block rotate-90">
-          <input
-            type="checkbox"
-            className="checkbox opacity-0 absolute"
-            id="chk"
-          />
-          <label
-            className="label bg-slate-900 dark:bg-white shadow dark:shadow-gray-800 cursor-pointer rounded-full flex justify-between items-center p-1 w-14 h-8"
-            htmlFor="chk"
-          >
-            <i className="uil uil-moon text-[20px] text-yellow-500" />
-            <i className="uil uil-sun text-[20px] text-yellow-500" />
-            <span className="ball bg-white dark:bg-slate-900 rounded-full absolute top-[2px] left-[2px] size-7" />
-          </label>
-        </span>
-      </div>
-      {/* Switcher */}
-      {/* Back to top */}
-      {/* <a
-        href="#"
-        onClick={()=>topFunction()}
-        id="back-to-top"
-        className="back-to-top fixed hidden text-lg rounded-full z-10 bottom-5 end-5 size-9 text-center bg-emerald-600 text-white justify-center items-center"
-      >
-        <i className="uil uil-arrow-up" />
-      </a> */}
-      {/* Back to top */}
     </>
   );
 }
