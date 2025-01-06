@@ -1,3 +1,4 @@
+import React from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./css/globals.css";
 import "./css/materialdesignicons.min.css";
@@ -9,6 +10,8 @@ import "./css/tailwind.min.css";
 import Header from "@/sections/header";
 import Script from "next/script";
 import Footer from "@/sections/footer";
+import { GlobalProvider } from "@/context/global";
+import LoadGlobalData from "@/components/load-global-data";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,9 +32,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="light scroll-smooth" dir="ltr">
       <body className="dark:bg-slate-900">
-        <Header />
-        {children}
-        <Footer />
+        <React.StrictMode>
+          <GlobalProvider>
+            <Header />
+            {children}
+            <Footer />
+            <LoadGlobalData />
+          </GlobalProvider>
+        </React.StrictMode>
         <Script src="/assets/libs/tobii/js/tobii.min.js" />
         <Script src="/assets/libs/tiny-slider/min/tiny-slider.js" />
         <Script src="/assets/libs/choices.js/public/assets/scripts/choices.min.js" />

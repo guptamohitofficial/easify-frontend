@@ -1,14 +1,15 @@
 "use client";
 
 import JobCardAbstract from "@/components/job-card-abstract";
-import { getSheetData } from "@/utils";
+import { useGlobalContext } from "@/context/global";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const [searchLocationOptions, setSearchLocationOptions] = useState([]);
   const [topJobServices, setTopJobServices] = useState([]);
-  const [fetchedJobs, setFetchedJobs] = useState([]);
+
+  const { allJobs, allCompanies } = useGlobalContext();
 
   useEffect(() => {
     setSearchLocationOptions([
@@ -49,11 +50,6 @@ export default function Home() {
         link: "",
       },
       {
-        title: "Marketing Lead",
-        image: "/assets/images/work/03.jpg",
-        link: "",
-      },
-      {
         title: "Admin & Customer Support",
         image: "/assets/images/work/04.jpg",
         link: "",
@@ -68,18 +64,13 @@ export default function Home() {
         image: "/assets/images/work/06.jpg",
         link: "",
       },
+      {
+        title: "Marketing Lead",
+        image: "/assets/images/work/03.jpg",
+        link: "",
+      },
     ]);
-    fetchAllJobs();
   }, []);
-  const fetchAllJobs = async () => {
-    const jobsList = await getSheetData({
-      sheetID: "1UDZEV5Jq4AemQ-yUEy31EAO0rox6GfCU8Bcip86cY3A",
-      sheetName: "Sheet1",
-      query: "SELECT * WHERE I = TRUE",
-    });
-    console.log("jobsList", jobsList);
-    setFetchedJobs(jobsList);
-  };
 
   return (
     <>
@@ -216,9 +207,21 @@ export default function Home() {
           </div>
           {/*end grid*/}
           <div className="grid grid-cols-1 mt-8 gap-[30px]">
-            {fetchedJobs?.map((job) => (
-              <JobCardAbstract key={job.job_description} job={job} />
-            ))}
+            {allJobs.length > 0 ? (
+              allJobs?.map((job) => (
+                <JobCardAbstract
+                  key={job.job_description}
+                  job={job}
+                  company={allCompanies[job.company_id]}
+                />
+              ))
+            ) : (
+              <div className="grid md:grid-cols-1 grid-cols-1 mt-8">
+                <div className="md:col-span-12 text-center">
+                  Loading Jobs ...
+                </div>
+              </div>
+            )}
           </div>
           {/*end grid*/}
           <div className="grid md:grid-cols-1 grid-cols-1 mt-8">

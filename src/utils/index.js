@@ -1,5 +1,6 @@
 export const responseToObjects = (res) => {
   const jsData = JSON.parse(res?.substring(47).slice(0, -2));
+  console.log("jsData",jsData)
   let data = [];
   const columns = jsData.table.cols;
   const rows = jsData.table.rows;
@@ -36,3 +37,4 @@ export const getSheetData = async ({ sheetID, sheetName, query }) => {
   const response = await fetch(url);
   return responseToObjects(await response.text());
 };
+

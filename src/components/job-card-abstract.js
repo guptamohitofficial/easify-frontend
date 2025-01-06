@@ -1,19 +1,12 @@
+"use client";
 import Link from "next/link";
 
-export default function JobCardAbstract({ job }) {
+export default function JobCardAbstract({ job={}, company={} }) {
   return (
     <div className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
       <div className="flex items-center">
         <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-          <img
-            src={
-              job.company_logo
-                ? job.company_logo
-                : "https://static.easify.xyz/worksnet/images/WorksNetLogo192.png"
-            }
-            className="size-8"
-            alt=""
-          />
+          <img src={company?.logo_url} className="size-8" alt="" />
         </div>
         <Link
           href={`/jobs/${job.id}`}
